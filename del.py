@@ -18,7 +18,7 @@ def create_html_doc(name,PIL_open):
 
 
 """
-input = images in numpy , text transcribed of images (raw for now maybe list seperated by \n or \n\n)
+input = images in numpy , text transcribed of images (raw for now maybe list seperated by \n or \n\n) 
 output = list or numpy array() of list of pytesseract to find the text data
 to find the paragraph in images
 

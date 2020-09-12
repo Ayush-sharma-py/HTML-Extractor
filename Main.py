@@ -15,17 +15,19 @@ training_files = os.listdir(training_directory)
 
 #List of training images converted into numpy arrays
 training_images = []
+array_training_images = []
 
 #Iterating through to add images in array format to the training_images list
 for image_directory in training_files:
     #data pipeline for pytesseract in PIL class
     image = PIL.Image.open(training_directory + "\\" + image_directory)
     #resizing to make it streamlined 
-    image = image.resize((28,28))
     training_images.append(image)
+    image = image.resize((28,28))
+    array_training_images.append(np.array(image))
 
 #numpy array of images
-array_training_images = np.array(training_images)
+array_training_images = np.array(array_training_images)
 
 #Function for extracting text from image 
 def extract_text(PIL_open):
@@ -34,9 +36,20 @@ def extract_text(PIL_open):
 def shape_text_data(text:str):
     text = text.split("\n\n")
     text = np.array(text)
-    print(text)
+    return text
 
-shape_text_data(extract_text(training_images[0]))
+#shape_text_data(extract_text(training_images[0]))
+
+#this is the list of the texts involved
+training_input_text = []
+
+for image in training_images:
+    training_input_text.append(shape_text_data(extract_text(image)))
+
+print(max(training_input_text))
+
+print("\n\n\n\n\n\n\n\n")
+print(len(max(training_input_text)))
 
 
 
@@ -51,5 +64,7 @@ model = keras.Sequential([
     keras.layers.Dense(512,activation='relu'),
     keras.layers.Dense(512,activation='relu'),
     keras.layers.Dense(512,activation='relu'),
-    #keras.layers.Dense(len(shapes)) #shape of output is not defined yet
+    keras.layers.Dense(len(max(training_input_text))) #shape of output is not defined yet
 ])
+
+
