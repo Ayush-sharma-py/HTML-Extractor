@@ -53,9 +53,3 @@ model = keras.Sequential([
     keras.layers.Dense(512,activation='relu'),
     #keras.layers.Dense(len(shapes)) #shape of output is not defined yet
 ])
-
-
-
-
-
-
