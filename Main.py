@@ -19,9 +19,7 @@ array_training_images = []
 
 #Iterating through to add images in array format to the training_images list
 for image_directory in training_files:
-    #data pipeline for pytesseract in PIL class
     image = PIL.Image.open(training_directory + "\\" + image_directory)
-    #resizing to make it streamlined 
     training_images.append(image)
     image = image.resize((28,28))
     array_training_images.append(np.array(image))
@@ -35,7 +33,6 @@ def extract_text(PIL_open):
 
 def shape_text_data(text:str):
     text = text.split("\n\n")
-    text = np.array(text)
     return text
 
 #shape_text_data(extract_text(training_images[0]))
@@ -48,11 +45,6 @@ for image in training_images:
 
 print(max(training_input_text))
 
-print("\n\n\n\n\n\n\n\n")
-print(len(max(training_input_text)))
-
-
-
 #starting tensorflow model
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28, 3)),
@@ -64,7 +56,7 @@ model = keras.Sequential([
     keras.layers.Dense(512,activation='relu'),
     keras.layers.Dense(512,activation='relu'),
     keras.layers.Dense(512,activation='relu'),
-    keras.layers.Dense(len(max(training_input_text))) #shape of output is not defined yet
+    #keras.layers.Dense(len(max(training_input_text))) #shape of output is not defined yet
 ])
 
-
+#input array of images 
